@@ -1,0 +1,85 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+
+#define trace(...) __f(#__VA_ARGS__, __VA_ARGS__)
+template <typename Arg1>
+void __f(const char* name, Arg1&& arg1)
+{
+    cerr << name << " : " << arg1 << std::endl;
+}
+template <typename Arg1, typename... Args>
+void __f(const char* names, Arg1&& arg1, Args&&... args)
+{
+    const char* comma = strchr(names + 1, ',');
+    cerr.write(names, comma - names) << " : " << arg1<<" | ";
+    __f(comma+1, args...);
+}
+
+template<class T> 
+ostream& operator<<(ostream &os, vector<T> V) 
+{
+    os << "[ "; 
+    for(auto v : V) os << v << " "; 
+    return os << "]";
+}
+
+template<class L, class R> 
+ostream& operator<<(ostream &os, pair<L,R> P) 
+{
+    return os << "(" << P.first << "," << P.second << ")";
+}
+
+template <typename T,typename U>
+pair<T,U> operator+(const pair<T,U> & l,const std::pair<T,U> & r) 
+{ 
+    return {l.first+r.first,l.second+r.second};
+}
+
+void test()
+{
+    string s; cin>>s;
+    int n= s.size();
+
+    map<char, int> freq;
+    for(char c: s)
+        freq[c]++;
+
+    // Impossible
+    for(auto p: freq)
+    {
+        if(2*p.second>n)
+        {
+            cout<<"IMPOSSIBLE"<<'\n';
+            return;
+        }
+    }
+
+    // Normal case
+    map<char, string> mp;
+    
+    string x= s;
+    sort(x.begin(), x.end());
+    for(int i=0; i<n; i++)
+        mp[x[i]].push_back(x[(i+n/2)%n]);
+
+    string res= "";
+    for(char c: s)
+    {
+        res.push_back(mp[c].back());
+        mp[c].pop_back();
+    }
+
+    cout<<res<<'\n';
+}
+
+signed main()
+{
+    iostream::sync_with_stdio(false);
+    int q; cin>>q;
+    for(int t=1; t<=q; t++)
+    {
+        cout<<"Case #"<<t<<": ";
+        test();
+    }
+}
