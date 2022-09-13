@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string s;
+char a[10000];
+void solve(){
+    cin >> s;
+    for(int i= 0; i< s.size() ; i++ ){
+        
+        a[i] = s[i];
+    }
+unordered_set<int> res;
+
+    for(int i= 0; i< s.size(); i++){
+       for(int j = i+1; j< s.size(); j++){
+          if(a[i] != a[j] && res.find(i)== res.end() && res.find(j) == res.end()) {
+             swap( a[i], a[j]);
+             res.insert(i);
+             res.insert(j);
+             break;}
+       }
+    }
+    string str;
+    for(int i = 0; i< s.size(); i++){
+        str += a[i];
+    }
+    for(int i= 0; i< s.size(); i++){
+        if(s[i] == str[i]){ cout <<str <<"IMPOSSIBLE" << "\n"; return;}
+        
+    }
+    
+    cout<< str << "\n";
+}
+
+int main(){
+    int t , i= 1;
+    cin >> t;
+    while(t--){
+        cout<< "case #" << i << ": ";
+        solve();
+        i++;
+    }
+}
