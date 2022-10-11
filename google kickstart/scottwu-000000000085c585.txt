@@ -1,0 +1,53 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+typedef long long ll;
+const int MAXN = 10100;
+
+int N;
+string S;
+pair <char, int> cc[MAXN];
+int loc[MAXN];
+
+void gogo()
+{
+    cin >> S;
+    N = S.length();
+    for (int i = 0; i < N; i++)
+    {
+        cc[i] = make_pair (S[i], i);
+    }
+    sort (cc, cc + N);
+    for (int i = 0; i < N; i++)
+        loc[cc[i].second] = i;
+
+    bool bad = false;
+    for (int i = 0; i < N; i++)
+    {
+        int j = (i + N / 2) % N;
+        if (cc[i].first == cc[j].first) bad = true;
+    }
+
+    if (bad) cout << "IMPOSSIBLE\n";
+    else
+    {
+        for (int i = 0; i < N; i++)
+        {
+            int j = (loc[i] + N / 2) % N;
+            cout << cc[j].first;
+        }
+        cout << "\n";
+    }
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(0);
+
+    int T; cin >> T;
+    for (int t = 0; t < T; t++)
+    {
+        cout << "Case #" << t+1 << ": ";
+        gogo();
+    }
+}
