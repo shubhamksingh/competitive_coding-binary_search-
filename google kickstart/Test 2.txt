@@ -1,0 +1,32 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+string s;
+char a[10000];
+void solve(){
+    cin >> s;
+    for(int i= 0; i< s.size() ; i++ ){
+        
+        a[i] = s[i];
+    }
+    for(int i= 0; i< s.size(); i++){
+       for(int j = i+1; j< s.size(); j++){
+          if(a[i] != a[j]) swap( a[i], a[j]);
+       }
+    }
+    string str;
+    for(int i = 0; i< s.size(); i++){
+        str += a[i];
+    }
+    cout<< str << "\n";
+}
+
+int main(){
+    int t , i= 1;
+    
+    while(t--){
+        cout<< "case #" << i << ": ";
+        solve();
+        i++;
+    }
+}
